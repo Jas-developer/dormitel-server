@@ -27,7 +27,7 @@ const inputBorder = asyncHandler(async (req, res) => {
   const roomAvailable = await Borders.findOne({ room_number });
 
   if (roomAvailable) {
-    res.json({
+    res.status(400).json({
       error: "Room is already occupied",
       status: 400,
     });

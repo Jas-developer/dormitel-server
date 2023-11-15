@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 
 const connectDb = async () => {
   try {
-    const connect = await mongoose.connect(
-      "mongodb+srv://softwareengineer23:softwareengineer23@cluster0.sa2sdwq.mongodb.net/dormitel?retryWrites=true&w=majority"
-    );
+    const connect = await mongoose.connect(process.env.MONGODB_CONNECTION);
     console.log(
       "Database Connected",
       connect.connection.host,
