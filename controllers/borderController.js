@@ -50,7 +50,7 @@ const inputBorder = asyncHandler(async (req, res) => {
   res.json({ message: "Register the user" });
 });
 
-// get request
+// get all the boarders
 const getBorders = asyncHandler(async (req, res) => {
   const borders = await Borders.find();
   if (!borders) {
@@ -60,4 +60,54 @@ const getBorders = asyncHandler(async (req, res) => {
   res.status(200).json(borders);
 });
 
-module.exports = { inputBorder, getBorders };
+// get a single boarder
+const getboarder = asyncHandler(async (req, res) => {
+  const boarder = await Borders.findById(req.params.id);
+  if (!boarder) {
+    res.json({ error: "Contact not found" });
+    throw new Error("Boarder not found");
+  }
+  res.status(201).json(boarder);
+});
+
+// editing/updating the boarder record
+const updateBoarder = asyncHandler(async (req, res) => {
+  const boarder = await Borders.findById(req.params.id);
+
+  if (!boarder) {
+    return res.status(404).json({ message: "Boarder Not Found!" });
+  }
+
+  const updatedBoarder = await Borders.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+
+  if (!updatedBoarder) {
+    return res.status(500).json({ message: "Failed to update Boarder" });
+  }
+
+  res.json(updatedBoarder);
+});
+
+// delete a single border
+const deleteBoarder = asyncHandler(async (req, res) => {
+  const boarder = await Borders.findById(req.params.id);
+  if (!boarder) {
+    console.log("Boarder not found");
+    throw new Error("Boarder not found");
+  }
+
+  await Borders.findByIdAndDelete(req.params.id);
+
+  res.status(200).json(boarder);
+});
+
+module.exports = {
+  inputBorder,
+  getBorders,
+  deleteBoarder,
+  updateBoarder,
+  getboarder,
+};
