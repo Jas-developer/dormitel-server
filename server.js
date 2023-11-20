@@ -12,6 +12,8 @@ connectDb();
 app.use(express.json());
 
 app.use("/borders", require("./routes/borderRoutes"));
+//@for admin
+app.use("/admin", require("./routes/AdminRoutes"));
 
 app.listen(port, () => {
   console.log(`Your port is listing to ${port}`);
