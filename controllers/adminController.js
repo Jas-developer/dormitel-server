@@ -35,7 +35,9 @@ const signInAdmin = asyncHandler(async (req, res) => {
 
   const ifAdmin = await Admin.findOne({ email });
   if (ifAdmin && ifAdmin.password === password) {
-    res.status(200).json({ message: "Login successfuly" });
+    res
+      .status(200)
+      .json({ message: "Login successfuly", email: email, password: password });
   } else {
     res.status(401).json({ message: "Invalid credentials" });
   }

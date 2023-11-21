@@ -39,7 +39,7 @@ const inputBorder = asyncHandler(async (req, res) => {
       date_started,
       monthly_amount_due,
     });
-
+    res.setHeader("Content-Type", "application/json");
     res.status(201).json({
       monthly: border.monthly_amount_due,
       date_started: border.date_started,
